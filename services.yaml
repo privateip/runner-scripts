@@ -3,7 +3,7 @@
 ---
 tags: &tags
   - devel
-  - infra
+  - runner
 
 service: &service
   type: python-script
@@ -33,7 +33,7 @@ decorators:
 repositories:
   - name: runner-scripts
     description: Repository of Ansible Runner scripts
-    url: "https://github.com/privateip/runner-scripts"
+    url: https://github.com/privateip/runner-scripts.git
     tags: *tags
 
 services:

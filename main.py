@@ -5,6 +5,8 @@ import ansible_runner
 
 def main():
 
+    print(os.environ)
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--module")
