@@ -1,11 +1,22 @@
 import sys
+import argparse
 
 import ansible_runner
 
 def main():
-    module_name = sys.argv[1]
-    host_pattern = sys.argv[2]
-    res = ansible_runner.run(module=module_name, host_pattern=host_pattern, quiet=True)
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--module")
+    parser.add_argument("--host")
+
+    args = parser.parse_args()
+
+    res = ansible_runner.run(
+        module=args.module,
+        host_pattern=args.host,
+        quiet=True,
+    )
 
     s = [r for r in res.stdout]
     print("".join(s))
