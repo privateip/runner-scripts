@@ -1,0 +1,44 @@
+# Copyright (c) 2025 Itential, Inc
+# GNU General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/gpl-3.0.txt)
+---
+tags: &tags
+  - devel
+  - infra
+
+service: &service
+  type: python-script
+  repository: runner-scripts
+  tags: *tags
+
+schema: &schema
+  $id: https://example.com/address.schema.json
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+
+decorators:
+  - name: run-ansible-module
+    description: |
+      Input schema for the `run-ansible-module` service
+    schema:
+      <<: *schema
+      properties:
+        module:
+          type: string
+          description: Name of the Ansible module to run
+        host:
+          type: string
+          description: Hostname or IP address to run the comand on
+      required: [ "module", "host" ]
+
+repositories:
+  - name: runner-scripts
+    description: Repository of Ansible Runner scripts
+    url: "https://github.com/privateip/runner-scripts"
+    tags: *tags
+
+services:
+  - name: run-ansible-module
+    <<: *service
+    description: Invoke an Ansible module and return the results
+    decorator: run-ansible-module
+    filename: main.py
